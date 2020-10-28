@@ -1,0 +1,35 @@
+#include <iostream>
+#include <deque>
+
+// EXERCÍCIO 1
+class Deque
+{
+public:
+
+    std::deque<int> deque_teste;
+
+    void insereInicio(int x) {
+        deque_teste.push_front(x);
+    }
+
+    void insereFim(int x) {
+        deque_teste.push_back(x);
+    }
+
+    void removeInicio(){
+        deque_teste.pop_front();
+    }
+
+    void removeFim() {
+        deque_teste.pop_back();
+    }
+
+    int buscaInicio(){
+        return deque_teste.front();
+    }
+
+    int buscaFim(){
+        return deque_teste.back();
+    }
+
+};
