@@ -1,0 +1,91 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+class No {
+public:
+    int valor;
+    No *esq;
+    No *dir;
+};
+
+class Arvore {
+public:
+    No *raiz;
+};
+
+// EXERCÍCIO A
+int somaFolhas(No *no) {
+    if (no == NULL) return 0;
+    if ((no->esq == NULL) && (no->dir == NULL)) return no->valor;
+    return no->valor + somaFolhas(no->esq) + somaFolhas(no->dir);
+}
+
+// EXERCÍCIO B
+void posOrdem(No *no) {
+    if (no != NULL) {
+        posOrdem(no->esq);
+        posOrdem(no->dir);
+        cout << no->valor << " ";
+    }
+}
+
+// EXERCÍCIO C
+void emOrdem(No *no) {
+    if (no != NULL) {
+        emOrdem(no->esq);
+        cout << no->valor << " ";
+        emOrdem(no->dir);
+    }
+}
+
+// EXERCÍCIO D
+void preOrdem(No *no) {
+    if (no != NULL) {
+        cout << no->valor << " ";
+        preOrdem(no->esq);
+        preOrdem(no->dir);
+    }
+}
+
+// EXERCÍCIO E
+int altura(No *no) {
+    if(!no) return 0;
+    int h_esq = altura(no->esq);
+    int h_dir = altura(no->dir);
+    if(h_esq > h_dir) return h_esq + 1;
+    else return h_dir + 1;
+}
+
+// EXERCÍCIO F
+void fatorBalanceamento(No *no) {
+    if (no != NULL) {
+        if (no->esq == NULL) {
+            if (no->dir == NULL) {
+                cout << 0 << endl;
+            } else {
+                cout << -(altura(no->dir)) << endl;
+            }
+        } else { if (no->dir == NULL) {
+                cout << altura(no->esq) << endl;
+            } else {
+                cout << (altura(no->esq) - altura(no->dir)) << endl;
+            }
+        }
+    }
+}
+
+// EXERCÍCIO G
+void percorreArvoreEmNiveis(No *no) {
+    if (no == NULL) return;
+    cout << no->valor << " ";
+    percorreArvoreEmNiveis(no->esq);
+    percorreArvoreEmNiveis(no->dir);
+}
+
+// EXERCÍCIO H
+int produto(No *no) {
+    if (no == NULL) return 1;
+    if ((no->esq == NULL) && (no->dir == NULL)) return no->valor;
+    return no->valor * produto(no->esq) * produto(no->dir);
+}
