@@ -1,0 +1,43 @@
+#include <iostream>
+#include <queue>
+
+// EXERCÍCIO 2
+class Pilha2F {
+public:
+
+    std::queue<int> fila1, fila2;
+    
+    int tamanho() {
+        return fila1.size();
+    }
+
+    void cria() {
+        fila1 = std::queue<int>{};
+        fila2 = std::queue<int>{};
+    }
+
+    int topo() {
+        return fila1.front();
+    }
+
+    void empilha(int x) {
+        while(fila1.size() > 0) {
+            fila2.push(fila1.front());
+            fila1.pop();
+        }
+
+        fila1.push(x);
+        
+        while(fila2.size() > 0) {
+            fila1.push(fila2.front());
+            fila2.pop();
+        }
+    }
+
+    int desempilha() {
+        int f = fila1.front();
+        fila1.pop();
+        return f;
+    }
+    
+};
