@@ -1,0 +1,44 @@
+#include <iostream>
+#include <queue>
+#include <stack>
+
+// EXERCÍCIO 4
+
+void inverteOrdemFila(std::stack<int> *pilha) {
+    std::queue<int> fila;
+    while(pilha->size() > 0){
+        fila.push(pilha->top());
+        pilha->pop();
+    }
+    while(fila.size() > 0){
+        pilha->push(fila.front());
+        fila.pop();
+    }
+}
+
+void inverteOrdemDuasPilhas(std::stack<int> *pilha) {
+    std::stack<int> pilha1, pilha2;
+    while(pilha->size() > 0){
+        pilha1.push(pilha->top());
+        pilha->pop();
+    }
+    while(pilha1.size() > 0) {
+        pilha2.push(pilha1.top());
+        pilha1.pop();
+    }
+    while(pilha2.size() > 0) {
+        pilha->push(pilha2.top());
+        pilha2.pop();
+    }
+}
+
+void inverteOrdemUmaPilha(std::stack<int> *pilha) {
+    std::stack<int> pilha1;
+
+    while(pilha->size() > 0) {
+        pilha1.push(pilha->top());
+        pilha->pop();
+    }
+
+    pilha->swap(pilha1);
+}
