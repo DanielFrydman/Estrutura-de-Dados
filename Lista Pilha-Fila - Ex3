@@ -1,0 +1,44 @@
+#include <iostream>
+#include <stack>
+
+// EXERCÍCIO 3
+class Fila {
+public:
+
+    std::stack<int> pilha1, pilha2;
+
+    int tamanho() {
+        return pilha1.size();
+    }
+
+    void cria() {
+        pilha1 = std::stack<int>{};
+        pilha2 = std::stack<int>{};
+    }
+
+    int topo() {
+        return pilha1.top();
+    }
+
+    void empilha(int x) {
+
+        while(pilha1.size() > 0) {
+            pilha2.push(pilha1.top());
+            pilha1.pop();
+        }
+
+        pilha1.push(x);
+
+        while(pilha2.size() > 0) {
+            pilha1.push(pilha2.top());
+            pilha2.pop();
+        }
+    }
+
+    int desempilha() {
+        int f = pilha1.top();
+        pilha1.pop();
+        return f;
+    }
+    
+};
