@@ -1,6 +1,21 @@
 #include <iostream>
 using namespace std;
 
+class No {
+public:
+    int valor;
+    No *esq;
+    No *dir;    // *no = 10
+};          // no->valor = 10   
+            // no->dir = *no_15
+            // no->dir->valor = 15
+            
+
+class Arvore {
+public:
+    No *raiz;
+};
+
 // EXERCÍCIO 1
 
 // [CENTRO ; ESQUERDA ; DIREITA]
@@ -28,4 +43,24 @@ void posOrdem(No *no) {
         posOrdem(no->dir);
         cout << no->valor << " ";
     }
+}
+
+
+
+int main() {
+    auto no_1 = new No{.valor=1, .esq=0, .dir=0};
+    auto no_2 = new No{.valor=2, .esq=0, .dir=0};
+    auto no_12 = new No{.valor=12, .esq=no_1, .dir=no_2};
+    auto no_8 = new No{.valor=8, .esq=0, .dir=0};
+    auto no_20 = new No{.valor=20, .esq=no_12, .dir=no_8};
+    auto no_5 = new No{.valor=5, .esq=0, .dir=0};
+    auto no_7 = new No{.valor=7, .esq=0, .dir=0};
+    auto no_15 = new No{.valor=15, .esq=no_5, .dir=no_7};
+    auto no_10 = new No{.valor=10, .esq=no_20, .dir=no_15};
+    preOrdem(no_10);
+    cout << "\n";
+    emOrdem(no_10);
+    cout << "\n";
+    posOrdem(no_10);
+    return 0;
 }
