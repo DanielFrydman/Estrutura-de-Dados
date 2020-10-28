@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+// EXERCÍCIO 1
+
+// [CENTRO ; ESQUERDA ; DIREITA]
+void preOrdem(No *no) {
+    if (no != NULL) {
+        cout << no->valor << " ";
+        preOrdem(no->esq);
+        preOrdem(no->dir);
+    }
+}
+
+// [ESQUERDA ; CENTRO ; DIREITA]
+void emOrdem(No *no) {
+    if (no != NULL) {
+        emOrdem(no->esq);
+        cout << no->valor << " ";
+        emOrdem(no->dir);
+    }
+}
+
+// [ESQUERDA ; DIREITA ; CENTRO]
+void posOrdem(No *no) {
+    if (no != NULL) {
+        posOrdem(no->esq);
+        posOrdem(no->dir);
+        cout << no->valor << " ";
+    }
+}
