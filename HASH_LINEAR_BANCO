@@ -1,0 +1,109 @@
+#include <iostream>
+#define TAMANHO_TABELA 19
+
+class Banco {
+public:
+    char nome[50];
+    int conta;
+    float valor_total;
+};
+
+Banco tabelaHash[TAMANHO_TABELA];
+
+// inicializa a tabela hash com o valor do inteiro CONTA como -1 para todos os clientes
+void inicializaTabela() {
+    for(int i=0; i<TAMANHO_TABELA; i++) {
+        tabelaHash[i].conta = -1;
+    }
+}
+
+// função de espalhamento (recebe o número da conta e gera o INDICE dentro do vetor pra salvar o elemento cliente)
+int gerarIndice(int numero_conta) {
+    return numero_conta % TAMANHO_TABELA;
+}
+
+// função pra ler e retornar um cliente
+Banco lerCliente() {
+    Banco b;
+    printf("\nDigite o numero da conta: ");
+    scanf("%d", &b.conta);
+    scanf("%*c");
+    printf("Digite o valor que tem na conta: ");
+    scanf("%f", &b.valor_total);
+    scanf("%*c");
+    printf("Digite o nome do cliente: ");
+    fgets(b.nome, 50, stdin);
+    return b;
+}
+
+// inserir cliente na tabela
+void inserirCliente() {
+    Banco cliente = lerCliente();
+    int indice = gerarIndice(cliente.conta);
+    while (tabelaHash[indice].conta != -1) {
+        indice = gerarIndice(indice + 1);
+    }
+    tabelaHash[indice] = cliente;
+}
+
+// busca o cliente através do número da conta 
+Banco* buscar(int conta) {
+    int indice = gerarIndice(conta);
+    while (tabelaHash[indice].conta != -1) {
+        if (tabelaHash[indice].conta == conta) 
+            return &tabelaHash[indice];
+        else
+            indice = gerarIndice(indice + 1);
+    }
+    return NULL;
+}
+
+void imprimir() {
+    printf("\n-------------------------- TABELA HASH BANCO ----------------------------------\n");
+    for(int i=0; i<TAMANHO_TABELA; i++) {
+        if (tabelaHash[i].conta != -1) 
+            printf("%d = Numero da conta: %d \t Cliente: %s \t Valor em conta: R$ %.2f\n", i, tabelaHash[i].conta, tabelaHash[i].nome, tabelaHash[i].valor_total);
+        else
+            printf("%d = \n", i);
+    }
+    printf("-------------------------------------------------------------------------------\n\n");
+}
+
+
+int main() {
+    
+    int operacao, conta;
+    Banco *c;
+    inicializaTabela();
+
+    do {
+        printf("\n1 - INSERIR CLIENTE E DADOS\n2 - BUSCAR\n3 - IMPRIMIR DADOS\n0 - SAIR\n");
+        scanf("%d", &operacao);
+
+        switch(operacao) {
+        case 0:
+            printf("Saindo...\n\n");
+            break;
+        case 1:
+            inserirCliente();
+            break;
+        case 2:
+            printf("\nDigite o numero da conta a ser buscada: ");
+            scanf("%d", &conta);
+            c = buscar(conta);
+            if (c != NULL)
+                printf("\n\tConta: %d \tNome: %s \tValor em conta: R$ %.2f\n", c->conta, c->nome, c->valor_total);
+            else
+                printf("\nConta nao encontrada!\n");
+            break;
+        case 3:
+            imprimir();
+            break;
+        default:
+            printf("Opcao invalida!\n");
+        }
+    } while (operacao != 0);
+    
+    return 0;
+
+}
