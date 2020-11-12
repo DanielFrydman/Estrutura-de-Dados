@@ -1,4 +1,8 @@
 #include <iostream>
+
+// constante que define o tamanho da tabela
+// geralmente é o numero primo mais próximo da quantidade de elementos multiplicado por 2
+// EXEMPLO: 10 chaves * 2 = 20 -> Número primo mais próximo = 19
 #define TAMANHO_TABELA 19
 
 class Banco {
@@ -19,7 +23,7 @@ void inicializaTabela() {
 
 // função de espalhamento (recebe o número da conta e gera o INDICE dentro do vetor pra salvar o elemento cliente)
 int gerarIndice(int numero_conta) {
-    return numero_conta % TAMANHO_TABELA;
+    return numero_conta % TAMANHO_TABELA; // resto da divisão do parametro pelo tamanho da tabela
 }
 
 // função pra ler e retornar um cliente
@@ -42,6 +46,7 @@ void inserirCliente() {
     int indice = gerarIndice(cliente.conta);
     while (tabelaHash[indice].conta != -1) {
         indice = gerarIndice(indice + 1);
+        // não tem como ser indice++ porque pode acabar caindo no último numero do array
     }
     tabelaHash[indice] = cliente;
 }
@@ -105,5 +110,4 @@ int main() {
     } while (operacao != 0);
     
     return 0;
-
 }
